@@ -1,42 +1,39 @@
 import OpenAI from "openai";
 import dotenv from "dotenv";
 
-import {model} from "../../Models/index.js";
+import { model } from "../../Models/index.js";
 
-const { tool, getCurrentWeather,availableFunctions } = model;
+const { tool, getCurrentWeather, availableFunctions } = model;
 
 dotenv.config();
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
-// example input  [
-  //   { role: "user", content: "What's the weather like in San Francisco, Tokyo, varanasi and pune ?" },
-  // ]
+const runConversation = async (input) => {
+  console.log("run LLM called ");
 
-const runConversation = async (input)=>{ // give input here
-    console.log("run LLM called ");
-
-  // Step 1: send the conversation and available functions to the model
-   const messages = [
+  const messages = [
     { role: "user", content: input },
   ];
   const tools = tool;
-
 
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo-0125",
     messages: messages,
     tools: tools,
-    tool_choice: "auto", // auto is default, but we'll be explicit
+    tool_choice: "auto",
   });
+
+  const FirstResponse = response;
   const responseMessage = response.choices[0].message;
+  console.log("logging response messages :", responseMessage);
 
-  // Step 2: check if the model wanted to call a function
   const toolCalls = responseMessage.tool_calls;
+  console.log("logging toolcalls", toolCalls);
+  
   if (responseMessage.tool_calls) {
-
-    messages.push(responseMessage); // extend conversation with assistant's reply
+    messages.push(responseMessage);
     for (const toolCall of toolCalls) {
       const functionName = toolCall.function.name;
       const functionToCall = availableFunctions[functionName];
@@ -45,20 +42,33 @@ const runConversation = async (input)=>{ // give input here
         functionArgs.location,
         functionArgs.unit
       );
+      console.log("message after pushing responseMessage: ", messages);
       messages.push({
         tool_call_id: toolCall.id,
         role: "tool",
         name: functionName,
         content: functionResponse,
-      }); // extend conversation with function response
+      });
+      console.log("message after pushing function response: ", messages);
     }
+    console.log("messages before secondResponse:", messages);
     const secondResponse = await openai.chat.completions.create({
       model: "gpt-3.5-turbo-0125",
       messages: messages,
-    }); // get a new response from the model where it can see the function response
-    return secondResponse.choices;
+    });
+
+    console.log("secondResponse: ", secondResponse);
+    if(secondResponse){
+      console.log("return secondResponse");
+      return secondResponse.choices;
+    }
+    
   }
+  console.log("return response");
+  return FirstResponse.choices;
 };
 
-
 export default runConversation;
+
+
+
