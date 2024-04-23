@@ -2,16 +2,22 @@
 ## Commands
 - clone repo
 
-```git clone https://github.com/ApexUnifier/Ai-microService.git
+```
+git clone https://github.com/ApexUnifier/Ai-microService.git
+
 ```
 - install dependencies
 
-```npm i
+```
+ npm i
+
 ```
 
 - to start `server`
 
-```npm run dev
+```
+npm run dev
+
 ```
 # Api References
 
