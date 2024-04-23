@@ -1,3 +1,4 @@
+    import getCurrentWeather from "./functions.js";
     // Step 3: call the function
     // Note: the JSON response may not always be valid; be sure to handle errors
     const availableFunctions = {

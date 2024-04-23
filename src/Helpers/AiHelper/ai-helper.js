@@ -1,9 +1,9 @@
 import OpenAI from "openai";
 import dotenv from "dotenv";
 
-import  AiHelper from "../../Models/index.js";
+import {model} from "../../Models/index.js";
 
-const { tool, getCurrentWeather } = AiHelper;
+const { tool, getCurrentWeather,availableFunctions } = model;
 
 dotenv.config();
 const openai = new OpenAI({
@@ -14,11 +14,13 @@ const openai = new OpenAI({
   //   { role: "user", content: "What's the weather like in San Francisco, Tokyo, varanasi and pune ?" },
   // ]
 
-async function runConversation(input) { // give input here
+const runConversation = async (input)=>{ // give input here
     console.log("run LLM called ");
 
   // Step 1: send the conversation and available functions to the model
-  const messages = input;
+   const messages = [
+    { role: "user", content: input },
+  ];
   const tools = tool;
 
 
@@ -59,4 +61,4 @@ async function runConversation(input) { // give input here
 };
 
 
-export default runConversation();
+export default runConversation;
