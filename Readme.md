@@ -4,20 +4,17 @@
 
 ```
 git clone https://github.com/ApexUnifier/Ai-microService.git
-
 ```
 - install dependencies
 
 ```
  npm i
-
 ```
 
 - to start `server`
 
 ```
 npm run dev
-
 ```
 # Api References
 
