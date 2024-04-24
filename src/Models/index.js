@@ -1,6 +1,6 @@
-import getCurrentWeather from "./functions.js";
-import tool from "./tool.js";
-import availableFunctions from "./availableFunctions.js";
+import {getCurrentWeather} from "./functions/functions.js";
+import tool from "./tool/tool.js";
+import availableFunctions from "./availableFunctions/availableFunctions.js";
 
 
 export const model = {

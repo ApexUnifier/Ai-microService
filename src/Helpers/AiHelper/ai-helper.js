@@ -39,8 +39,7 @@ const runConversation = async (input) => {
       const functionToCall = availableFunctions[functionName];
       const functionArgs = JSON.parse(toolCall.function.arguments);
       const functionResponse = functionToCall(
-        functionArgs.location,
-        functionArgs.unit
+        functionArgs
       );
       console.log("message after pushing responseMessage: ", messages);
       messages.push({
