@@ -7,6 +7,7 @@ import {fileURLToPath} from "url";
 import dotenv from "dotenv";
 dotenv.config();
 const PORT = process.env.PORT;
+const mainBackend = process.env.MAINBACKEND;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const indexPath = join(__dirname, "build", "index.html");
