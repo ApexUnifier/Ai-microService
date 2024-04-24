@@ -1,5 +1,5 @@
 import getCurrentWeather from "./functions/functions.js";
-import tool from "./tool.js";
+import tool from "./tool/tool.js";
 import availableFunctions from "./availableFunctions/availableFunctions.js";
 
 
