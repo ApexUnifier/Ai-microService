@@ -17,6 +17,13 @@ const tool = [
         },
       },
     },
+    {
+      type: "function",
+      function :{
+        name:"get_all_vacancies",
+        description:"get all vacancies available in the server.",
+      }
+    }
   ];
 
 export default tool;

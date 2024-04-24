@@ -1,6 +1,11 @@
-// Example dummy function hard coded to return the same weather
-// In production, this could be your backend API or an external API
+// backend API or an external API
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+const mainBackend = process.env.MAINBACKEND;
+
 export const getCurrentWeather = (functionArgs)=> {
+  console.log("getWeather has been called");
   const location = functionArgs.location;
   const unit = functionArgs.unit || "fahrenheit";
   
@@ -15,3 +20,19 @@ export const getCurrentWeather = (functionArgs)=> {
     }
   }
 
+  export const getAllVacancies = async () => {
+    try {
+      // Make a GET request to the specified URL
+
+      console.log(`this is ${mainBackend} url`);
+      const response = await axios.get(`${mainBackend}api/vacancy`);
+      console.log(response.data);
+      return JSON.stringify(response.data);
+
+    } catch (error) {
+      // Handle any errors that occurred during the request
+      
+      console.error('Error while sending GET request:', error);
+      throw new Error('Failed to send GET request');
+    }
+  };

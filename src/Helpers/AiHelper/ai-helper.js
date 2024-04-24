@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 import { model } from "../../Models/index.js";
 
-const { tool, getCurrentWeather, availableFunctions } = model;
+const { tool, availableFunctions } = model;
 
 dotenv.config();
 const openai = new OpenAI({
@@ -27,10 +27,10 @@ const runConversation = async (input) => {
 
   const FirstResponse = response;
   const responseMessage = response.choices[0].message;
-  console.log("logging response messages :", responseMessage);
+  // console.log("logging response messages :", responseMessage);
 
   const toolCalls = responseMessage.tool_calls;
-  console.log("logging toolcalls", toolCalls);
+  // console.log("logging toolcalls", toolCalls);
   
   if (responseMessage.tool_calls) {
     messages.push(responseMessage);
@@ -38,32 +38,32 @@ const runConversation = async (input) => {
       const functionName = toolCall.function.name;
       const functionToCall = availableFunctions[functionName];
       const functionArgs = JSON.parse(toolCall.function.arguments);
-      const functionResponse = functionToCall(
+      const functionResponse = await functionToCall(
         functionArgs
       );
-      console.log("message after pushing responseMessage: ", messages);
+      // console.log("message after pushing responseMessage: ", messages);
       messages.push({
         tool_call_id: toolCall.id,
         role: "tool",
         name: functionName,
         content: functionResponse,
       });
-      console.log("message after pushing function response: ", messages);
+      // console.log("message after pushing function response: ", messages);
     }
-    console.log("messages before secondResponse:", messages);
+    // console.log("messages before secondResponse:", messages);
     const secondResponse = await openai.chat.completions.create({
       model: "gpt-3.5-turbo-0125",
       messages: messages,
     });
 
-    console.log("secondResponse: ", secondResponse);
+    // console.log("secondResponse: ", secondResponse);
     if(secondResponse){
-      console.log("return secondResponse");
+      console.log("Ai has returned second response");
       return secondResponse.choices;
     }
     
   }
-  console.log("return response");
+  console.log("Ai has returned firt response");
   return FirstResponse.choices;
 };
 
