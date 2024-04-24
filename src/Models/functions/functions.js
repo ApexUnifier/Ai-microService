@@ -1,6 +1,9 @@
 // Example dummy function hard coded to return the same weather
 // In production, this could be your backend API or an external API
-const getCurrentWeather = (location, unit = "fahrenheit")=> {
+export const getCurrentWeather = (functionArgs)=> {
+  const location = functionArgs.location;
+  const unit = functionArgs.unit || "fahrenheit";
+  
     if (location.toLowerCase().includes("tokyo")) {
       return JSON.stringify({ location: "Tokyo", temperature: "10", unit: "celsius" });
     } else if (location.toLowerCase().includes("san francisco")) {
@@ -12,4 +15,3 @@ const getCurrentWeather = (location, unit = "fahrenheit")=> {
     }
   }
 
-export default getCurrentWeather;
