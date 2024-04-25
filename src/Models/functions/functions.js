@@ -20,19 +20,20 @@ export const getCurrentWeather = (functionArgs)=> {
     }
   }
 
-  export const getAllVacancies = async () => {
+  
+
+  export const filterUsersByRating = async (functionArgs) => {
+    console.log('filtering by rating..');
+    const ratingScore = functionArgs.ratingScore;
     try {
-      // Make a GET request to the specified URL
-
-      console.log(`this is ${mainBackend} url`);
-      const response = await axios.get(`${mainBackend}api/vacancy`);
-      console.log(response.data);
+      // Make a POST request to the endpoint
+      const response = await axios.post(`${mainBackend}api/user/filterusersbyrating`, { ratingScore });
+  
+      // Return the response data
       return JSON.stringify(response.data);
-
     } catch (error) {
-      // Handle any errors that occurred during the request
-      
-      console.error('Error while sending GET request:', error);
-      throw new Error('Failed to send GET request');
+      // Handle error
+      console.error('Failed to filter users:', error.response.data);
+      return 'internal error';
     }
   };

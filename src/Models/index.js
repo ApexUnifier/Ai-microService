@@ -4,7 +4,6 @@ import availableFunctions from "./availableFunctions/availableFunctions.js";
 
 
 export const model = {
-getCurrentWeather,
 tool,
 availableFunctions,
 };

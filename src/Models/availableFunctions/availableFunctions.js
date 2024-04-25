@@ -1,5 +1,6 @@
     import {getCurrentWeather,
       getAllVacancies,
+      filterUsersByRating,
     
     } from "../functions/functions.js";
     // Step 3: call the function
@@ -7,5 +8,6 @@
     const availableFunctions = {
         get_current_weather: getCurrentWeather,
         get_all_vacancies: getAllVacancies,
+        filter_user_by_rating:filterUsersByRating,
       }; // only one function in this example, but you can have multiple
 export default availableFunctions;

@@ -22,8 +22,27 @@ const tool = [
       function :{
         name:"get_all_vacancies",
         description:"get all vacancies available in the server.",
+        
       }
-    }
+    },
+    {
+      type:"function",
+      function:{
+        name:"filter_user_by_rating",
+        description:"returns the users who has rating greater than given input",
+        parameters:{
+          type: "object",
+          properties:{
+            ratingScore:{
+              type:"number",
+              description:"rating score eg. 0.5,0.8,1"
+            }
+          },
+          required:["ratingScore"],
+          
+        },
+      },
+    },
   ];
 
 export default tool;

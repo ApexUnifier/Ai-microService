@@ -15,13 +15,18 @@ function* getTextOfSpans(content, spans) {
   }
 }
 
-
+const path = 'UploadDoc/upload.pdf';
 const key = process.env.DOC_KEY;
 const endpoint = process.env.DOC_ENDPOINT;
 
-async function main(path) {
+async function main() {
+  console.log("main file reading function called ..");
+  if(!path){
+    return `no path found`
+  }
+  try{
   const readStream = fs.createReadStream(path);
-
+  
   // create your `DocumentAnalysisClient` instance and `AzureKeyCredential` variable
   const client = new DocumentAnalysisClient(
     endpoint,
@@ -57,8 +62,15 @@ async function main(path) {
       );
     }
   }
+  console.log(concatenatedText);
   return concatenatedText;
+
 }
-// main("server/modules/azure/Business_Resume.docx.pdf")
+catch(err){
+  console.log('error while reading');
+  return 'error while reading';
+}
+}
+// main("C:/Users/Priyanshu/Desktop/Ai-microService/src/Helpers/document/Business_Resume.docx.pdf")
 export default main;
 //this reads all the files and converts it into text
