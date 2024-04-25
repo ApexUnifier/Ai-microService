@@ -6,11 +6,14 @@ const mainBackend = process.env.MAINBACKEND;
 
 // filterUsers,
 
+
+
 export const filterUsers = async (functionArgs) => {
     const skills = functionArgs.skills // example ['JavaScript', 'React']
     try {
       const response = await axios.post(`${mainBackend}/api/user/filter`, { skills });
       console.log(response.data); // Assuming you want to log the filtered users data
+      return JSON.stringify(response.data);
     } catch (error) {
       console.error('Error filtering users:', error);
     }
@@ -36,8 +39,9 @@ export const updateUser = async (functionArgs) => {
     //   };
 
     try {
-      const response = await axios.put(`${mainBackend}/api/user/update/${userId}`, userData);
+      const response = await axios.post(`${mainBackend}api/user/update/${userId}`, userData);
       console.log(response.data); // Assuming you want to log the updated user data
+      return JSON.stringify(response.data);
     } catch (error) {
       console.error('Error updating user:', error);
     }
@@ -54,6 +58,7 @@ export const getUserById = async (functionArgs) => {
   try {
     const response = await axios.get(`${mainBackend}/api/user/${userId}`);
     console.log(response.data); // Assuming you want to log the user data
+    return JSON.stringify(response.data);
   } catch (error) {
     console.error('Error getting user:', error);
   }
@@ -66,9 +71,11 @@ export const getUserById = async (functionArgs) => {
 export const filterUsersByRating = async (functionArgs) => {
     console.log('filtering by rating..');
     const ratingScore = functionArgs.ratingScore;
+    console.log(ratingScore);
     try {
       // Make a POST request to the endpoint
       const response = await axios.post(`${mainBackend}api/user/filterusersbyrating`, { ratingScore });
+      console.log(response);
   
       // Return the response data
       return JSON.stringify(response.data);
