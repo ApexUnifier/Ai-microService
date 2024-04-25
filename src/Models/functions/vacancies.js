@@ -9,10 +9,10 @@ const mainBackend = process.env.MAINBACKEND;
 export const getAllVacancies = async () => {
     try {
       // Make a GET request to the specified URL
-
+      console.log("getAllVacancies called");
       console.log(`this is ${mainBackend} url`);
       const response = await axios.get(`${mainBackend}api/vacancy/`);
-      console.log(response.data);
+      // console.log(response.data);
       return JSON.stringify(response.data);
 
     } catch (error) {
@@ -27,6 +27,7 @@ export const getAllVacancies = async () => {
 
   export const getVacancyById = async (functionArgs) => {
     const id = functionArgs.id;
+    console.log("getVacancyById called");
     try {
       const response = await axios.get(`${mainBackend}api/vacancy/${id}`);
       return response.data;
@@ -50,16 +51,29 @@ export const getAllVacanciesForCompany = async (functionArgs) => {
 //4) filter:
 
 export const filterVacancies = async (functionArgs) => {
-  const reqBody = {
-    location: functionArgs.location,
-    skillsRequired: functionArgs.skillsRequired,
-    companyName: functionArgs.companyName,
-    jobType: functionArgs.jobType
-  };
+  const reqBody = {};
+
+  if (functionArgs.location) {
+    reqBody.location = functionArgs.location;
+  }
+  
+  if (functionArgs.skillsRequired) {
+    reqBody.skillsRequired = functionArgs.skillsRequired;
+  }
+  
+  if (functionArgs.companyName) {
+    reqBody.companyName = functionArgs.companyName;
+  }
+  
+  if (functionArgs.jobType) {
+    reqBody.jobType = functionArgs.jobType;
+  }
+  
 
   try {
     const response = await axios.post(`${mainBackend}api/vacancy/filter`, reqBody);
-    console.log(response.data); // Assuming you want to log the response data
+    // console.log(response.data); 
+    return JSON.stringify(response.data)// Assuming you want to log the response data
   } catch (error) {
     console.error('Error filtering vacancies:', error);
   }

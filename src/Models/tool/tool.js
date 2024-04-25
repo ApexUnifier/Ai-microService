@@ -43,6 +43,32 @@ const tool = [
         },
       },
     },
+    {
+      type:"function",
+      function:{
+        name:"update_user",
+        description:"updates the existing user's data",
+        parameters:{
+          type:"object",
+          properties:{
+            userId:{
+              type:"string",
+              description:"userId of the user",
+            },
+            userData:{
+              type:"object",
+              properties:{
+                name:{
+                  type:"string",
+                  descrition:"name of the user to be updated"
+                },
+              },
+            },
+          },
+          
+        },
+      },
+    },
   ];
 
 export default tool;
