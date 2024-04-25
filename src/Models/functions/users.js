@@ -6,7 +6,7 @@ const mainBackend = process.env.MAINBACKEND;
 
 // filterUsers,
 
-const filterUsers = async (functionArgs) => {
+export const filterUsers = async (functionArgs) => {
     const skills = functionArgs.skills // example ['JavaScript', 'React']
     try {
       const response = await axios.post(`${mainBackend}/api/user/filter`, { skills });
