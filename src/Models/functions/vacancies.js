@@ -4,7 +4,7 @@ dotenv.config();
 const mainBackend = process.env.MAINBACKEND;
 
 
-//1) get all Vacancies
+//1) get all Vacancies:
 
 export const getAllVacancies = async () => {
     try {
@@ -35,7 +35,7 @@ export const getAllVacancies = async () => {
     }
   };
 
-  //3) getAllbyCompanyID
+  //3) getAllbyCompanyID:
 
 export const getAllVacanciesForCompany = async (functionArgs) => {
     const companyId = functionArgs.companyId;
@@ -47,9 +47,44 @@ export const getAllVacanciesForCompany = async (functionArgs) => {
   }
 };
 
+//4) filter:
 
-//4) filter
+export const filterVacancies = async (functionArgs) => {
+  const reqBody = {
+    location: functionArgs.location,
+    skillsRequired: functionArgs.skillsRequired,
+    companyName: functionArgs.companyName,
+    jobType: functionArgs.jobType
+  };
 
+  try {
+    const response = await axios.post(`${mainBackend}api/vacancy/filter`, reqBody);
+    console.log(response.data); // Assuming you want to log the response data
+  } catch (error) {
+    console.error('Error filtering vacancies:', error);
+  }
+};
+
+//5) Create vacancy:
+
+export const createVacancy = async (functionArgs) => {
+  const requestBody = {
+    // Provide the necessary data for creating a vacancy
+    // For example:
+    title: functionArgs.title,  // data type string
+    location: functionArgs.location, // data type string
+    skillsRequired: functionArgs.skillsRequired, // data type // array
+    companyName: functionArgs.companyName, // data type string
+    jobType: functionArgs.jobType // data type string
+  };
+
+  try {
+    const response = await axios.post(`${mainBackend}api/vacancy/create`, requestBody);
+    console.log(response.data); // Assuming you want to log the response data
+  } catch (error) {
+    console.error('Error creating vacancy:', error);
+  }
+};
 
 
 

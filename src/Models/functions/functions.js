@@ -21,19 +21,7 @@ export const getCurrentWeather = (functionArgs)=> {
   }
 
   
+//
 
-  export const filterUsersByRating = async (functionArgs) => {
-    console.log('filtering by rating..');
-    const ratingScore = functionArgs.ratingScore;
-    try {
-      // Make a POST request to the endpoint
-      const response = await axios.post(`${mainBackend}api/user/filterusersbyrating`, { ratingScore });
-  
-      // Return the response data
-      return JSON.stringify(response.data);
-    } catch (error) {
-      // Handle error
-      console.error('Failed to filter users:', error.response.data);
-      return 'internal error';
-    }
-  };
+
+
